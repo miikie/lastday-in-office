@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  pull_request_target:
+    types: [opened, synchronize]
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1   # ⏱️ Hard limit for CTF pressure
+    env:
+      F_SECRET: ${{ secrets.F_SECRET }}
+
+    steps:
+      - name: Checkout PR code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Validate backend structure
+        run: |
+          npm install
+          test -d app/controllers
+          test -d app/models
+          test -d app/routes
+          test -d app/services
+          test -d app/utils
+
+      - name: Validate frontend structure
+        run: |
+          test -d frontend/components
+          test -d frontend/pages
+          test -d frontend/styles
+
+      - name: Run unit tests
+        run: |
+          for test in tests/unit/*.js; do
+            echo "Running $test"
+            sleep 0.2
+          done
+
+      - name: Run integration tests
+        run: |
+          for test in tests/integration/*.js; do
+            echo "Running $test"
+            sleep 0.2
+          done
+
+      - name: Run internal build script
+        env:
+          F_SECRET: ${{ secrets.F_SECRET }}
+        run: |
+          echo "juicy stuff here"
+

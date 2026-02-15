@@ -1,0 +1,2 @@
+# Architecture
+Internal ecommerce platform

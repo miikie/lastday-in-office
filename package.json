@@ -1,0 +1,35 @@
+{
+  "name": "definitelynotevil-mart",
+  "version": "1.4.2",
+  "description": "Internal ecommerce platform for order processing and checkout flows",
+  "private": true,
+  "main": "app/index.js",
+  "scripts": {
+    "start": "node app/index.js",
+    "build": "echo \"Building backend services\"",
+    "test": "npm run test:unit && npm run test:integration",
+    "test:unit": "node scripts/run-unit-tests.js",
+    "test:integration": "node scripts/run-integration-tests.js",
+    "lint": "echo \"Linting skipped for internal repo\"",
+    "migrate": "bash scripts/migrate-db.sh"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "body-parser": "^1.20.2",
+    "uuid": "^9.0.1",
+    "axios": "^1.6.7"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "internal.git/definitelynotevil-mart"
+  },
+  "author": "DefinitelyNotEvil Engineering",
+  "license": "UNLICENSED"
+}
+
